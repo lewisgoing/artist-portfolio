@@ -36,6 +36,7 @@
     font-weight: 400;
 }
 
+/*header box*/
 .textBox {
     width: fit-content;
 
@@ -62,7 +63,26 @@
     font-family: 'SongNeue2', serif;
     color: #313638;
     cursor: pointer;
+    background-color: #ffffff;
 }
+
+
+
+.subheader {
+    margin-left: 4px;
+    padding-left: 16px;
+    text-align: left;
+    font-family: 'SongNeue', serif;
+    font-weight: 400;
+    font-size: 3rem;
+    z-index: 900;
+    position: relative;
+    color: #313638;
+    pointer-events: none;
+    background-color: #ffffff;
+}
+
+/*nav*/
 
 .navPanel {
     background-color: #fff;
@@ -76,7 +96,8 @@
     height: auto;
     width: fit-content;
     /*width: 250px;*/
-    padding: 8px;
+    margin: 4px;
+    padding: 4px;
     /*padding-top: 16px;*/
     /*margin-right: 10rem;*/
     /*padding-left: 8px;*/
@@ -97,18 +118,7 @@
     color: #fff;
 }
 
-.subheader {
-    padding-left: 16px;
-    text-align: left;
-    font-family: 'SongNeue', serif;
-    font-weight: 400;
-    font-size: 3rem;
-    z-index: 900;
-    position: relative;
-    color: #313638;
-    pointer-events: none;
-}
-
+/*cursor*/
 #cursor-inner {
     display: none;
 }
