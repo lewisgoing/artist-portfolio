@@ -1,20 +1,8 @@
 'use client'
 import styles from './page.module.css'
-import {useEffect, useRef, useState} from 'react';
-
-// Header + Transition styles
-// import styles from './page.module.scss'
-// import Header from '../components/header';
-// import Menu from '../components/menu';
-// import CenteredPixelTransition from '../components/pixelTransition/centered';
-// import VerticalPixelTransition from '../components/pixelTransition/vertical';
-// import HorizontalPixelTransition from '../components/pixelTransition/horizontal';
-
-
-
+import { useEffect, useRef, useState } from 'react';
 
 export default function Index() {
-
   let steps = 0;
   let currentIndex = 0;
   let nbOfImages = 0;
@@ -24,27 +12,22 @@ export default function Index() {
 
   const manageMouseMove = (e) => {
     const { clientX, clientY, movementX, movementY } = e;
-
     steps += Math.abs(movementX) + Math.abs(movementY);
 
-    if(steps >= currentIndex * 150){
+    if (steps >= currentIndex * 150) {
       moveImage(clientX, clientY);
 
-      if(nbOfImages == maxNumberOfImages){
+      if (nbOfImages == maxNumberOfImages) {
         removeImage();
       }
     }
 
-    // if(textRef.current) {
-    //   textRef.current.style.left = `${clientX}px`;
-    //   textRef.current.style.top = `${clientY}px`; // Adjusts text to appear above the mouse
-    // }
-
-    if(currentIndex == refs.length){
+    if (currentIndex == refs.length) {
       currentIndex = 0;
       steps = -150;
     }
   }
+
   const moveImage = (x, y) => {
     const currentImage = refs[currentIndex].current;
     currentImage.style.left = x + "px";
@@ -52,12 +35,12 @@ export default function Index() {
     currentImage.style.display = "block";
     currentIndex++;
     nbOfImages++;
-    setZIndex()
+    setZIndex();
   }
 
   const setZIndex = () => {
     const images = getCurrentImages();
-    for(let i = 0 ; i < images.length ; i++){
+    for (let i = 0; i < images.length; i++) {
       images[i].style.zIndex = i;
     }
   }
@@ -69,38 +52,29 @@ export default function Index() {
   }
 
   const getCurrentImages = () => {
-    let images = []
+    let images = [];
     let indexOfFirst = currentIndex - nbOfImages;
-    for(let i = indexOfFirst ; i < currentIndex ; i++){
+    for (let i = indexOfFirst; i < currentIndex; i++) {
       let targetIndex = i;
-      if(targetIndex < 0) targetIndex += refs.length
+      if (targetIndex < 0) targetIndex += refs.length;
       images.push(refs[targetIndex].current);
     }
     return images;
   }
 
   return (
-      <main >
-
-        <div onMouseMove={(e) => {
-          manageMouseMove(e)
-        }} className={styles.main}>
-          {/*<Header menuIsActive={menuIsActive} setMenuIsActive={setMenuIsActive} />*/}
-          {/*<Menu menuIsActive={menuIsActive}/>*/}
+      <main>
+        <div onMouseMove={(e) => manageMouseMove(e)} className={styles.main}>
           {
             [...Array(19).keys()].map((_, index) => {
               const ref = useRef(null);
-              refs.push(ref)
-              return <img onClick={() => {
-                console.log(refs)
-              }} ref={ref} src={`/images/${index}.jpg`}></img>
+              refs.push(ref);
+              return <img key={index} onClick={() => console.log(refs)} ref={ref} src={`/images/${index}.jpg`} />;
             })
           }
           <span ref={textRef} className={styles.floatingText}>lewisgoing</span>
-
+          <span className={styles.subheader}>a multimedia project</span>
         </div>
-
       </main>
-
   )
 }
