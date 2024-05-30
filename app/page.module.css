@@ -1,16 +1,23 @@
 .main {
+    height: 100%;
+    width: 100%;
+    cursor: auto;
+}
+
+.imageCursorSpace {
     display: flex;
     flex-direction: column;
-    /*align-items: center;*/
+    align-items: center;
     /*justify-content: center;*/
     height: 100%;
     width: 100%;
     position: fixed;
     overflow: hidden;
     cursor: none;
+
 }
 
-.main img {
+.imageCursorSpace img {
     width: 30vw;
     position: absolute;
     display: none;
@@ -29,26 +36,77 @@
     font-weight: 400;
 }
 
-.floatingText {
-    text-align: left;
-    padding-bottom: 8px;
+.textBox {
+    width: fit-content;
+
+    /*justify-content: center;*/
+    /*padding: 1rem;*/
+    background-color: #ffffff;
+    z-index: 475;
+    align-items: center;
+    padding-left: 8px;
     padding-top: 8px;
-    font-size: 3rem;
+    /*border-radius: 16px;*/
+}
+
+.floatingText {
+
+    justify-content: center;
+    text-align: center;
+    /*padding-bottom: 8px;*/
+    /*padding-top: 8px;*/
+    /*padding: 2rempx;*/
+    font-size: 4rem;
     z-index: 900;
     position: relative;
     font-family: 'SongNeue2', serif;
-    pointer-events: none;
-    color: #000;
+    color: #313638;
+    cursor: pointer;
 }
 
-.subheader {
+.navPanel {
+    background-color: #fff;
+    justify-content: center;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.navItem {
+    height: auto;
+    width: fit-content;
+    /*width: 250px;*/
+    padding: 8px;
+    /*padding-top: 16px;*/
+    /*margin-right: 10rem;*/
+    /*padding-left: 8px;*/
     text-align: left;
     font-family: 'SongNeue', serif;
     font-weight: 400;
-    font-size: 2rem;
+    font-size: 3rem;
     z-index: 900;
     position: relative;
-    color: #000;
+    color: #313638;
+    text-decoration: none;
+    background-color: #fff;
+    /*pointer-events: pointer;*/
+}
+
+.navItem:hover {
+    background-color: #313638;
+    color: #fff;
+}
+
+.subheader {
+    padding-left: 16px;
+    text-align: left;
+    font-family: 'SongNeue', serif;
+    font-weight: 400;
+    font-size: 3rem;
+    z-index: 900;
+    position: relative;
+    color: #313638;
+    pointer-events: none;
 }
 
 #cursor-inner {
@@ -64,4 +122,15 @@
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
     background-color: var(--cursor-color); /* Ensure this matches your intended color */
     mix-blend-mode: exclusion; /* Ensure this matches your intended blend mode */
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 4px;
+    font-size: 12px;
+    z-index: 952;
+    color: #fff;
 }
