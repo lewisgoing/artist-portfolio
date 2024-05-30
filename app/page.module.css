@@ -1,0 +1,33 @@
+.main {
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+}
+
+
+.main img{
+    width: 30vw;
+    position: absolute;
+    display: none;
+    transform: translateX(-50%) translateY(-50%);;
+}
+
+@font-face {
+    font-family: 'SongNeue';
+    src: url('../public/SongNeue 55 Roman.woff2') format('woff2');
+}
+
+.floatingText {
+    font-size: 10rem;
+    z-index: 1000;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    font-family: 'SongNeue', serif;
+    pointer-events: none; /* Makes the text non-interactive */
+    color: #000;
+}
