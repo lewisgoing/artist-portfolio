@@ -1,6 +1,17 @@
 'use client'
 import styles from './page.module.css'
-import { useRef } from 'react';
+import {useEffect, useRef, useState} from 'react';
+
+// Header + Transition styles
+// import styles from './page.module.scss'
+// import Header from '../components/header';
+// import Menu from '../components/menu';
+// import CenteredPixelTransition from '../components/pixelTransition/centered';
+// import VerticalPixelTransition from '../components/pixelTransition/vertical';
+// import HorizontalPixelTransition from '../components/pixelTransition/horizontal';
+
+
+
 
 export default function Index() {
 
@@ -69,19 +80,27 @@ export default function Index() {
   }
 
   return (
-      <div onMouseMove={(e) => {
-        manageMouseMove(e)
-      }} className={styles.main}>
-        {
-          [...Array(19).keys()].map((_, index) => {
-            const ref = useRef(null);
-            refs.push(ref)
-            return <img onClick={() => {
-              console.log(refs)
-            }} ref={ref} src={`/images/${index}.jpg`}></img>
-          })
-        }
-        <span ref={textRef} className={styles.floatingText}>lewisgoing</span>
-      </div>
+      <main >
+
+        <div onMouseMove={(e) => {
+          manageMouseMove(e)
+        }} className={styles.main}>
+          {/*<Header menuIsActive={menuIsActive} setMenuIsActive={setMenuIsActive} />*/}
+          {/*<Menu menuIsActive={menuIsActive}/>*/}
+          {
+            [...Array(19).keys()].map((_, index) => {
+              const ref = useRef(null);
+              refs.push(ref)
+              return <img onClick={() => {
+                console.log(refs)
+              }} ref={ref} src={`/images/${index}.jpg`}></img>
+            })
+          }
+          <span ref={textRef} className={styles.floatingText}>lewisgoing</span>
+
+        </div>
+
+      </main>
+
   )
 }
