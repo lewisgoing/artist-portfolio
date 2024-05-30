@@ -1,6 +1,7 @@
 'use client'
 import styles from './page.module.css'
 import { useEffect, useRef, useState } from 'react';
+// import AnimatedCursor from 'animated-cursor';
 
 export default function Index() {
   let steps = 0;
@@ -61,20 +62,38 @@ export default function Index() {
     }
     return images;
   }
+  //
+  // useEffect(() => {
+  //   const cursorOptions = {
+  //       innerSize: 1,
+  //     cursorInnerStyles: {
+  //       backgroundColor: 'var(--cursor-color)', // white
+  //       mixBlendMode: 'exclusion'
+  //     },
+  //     cursorOuterStyles: {
+  //       backgroundColor: 'var(--cursor-color)', // white
+  //       mixBlendMode: 'exclusion'
+  //     }
+  //   };
+  //   const cursor = AnimatedCursor(cursorOptions);
+  //   cursor.init();
+  // }, []);
 
   return (
       <main>
         <div onMouseMove={(e) => manageMouseMove(e)} className={styles.main}>
           {
-            [...Array(19).keys()].map((_, index) => {
+            [...Array(21).keys()].map((_, index) => {
               const ref = useRef(null);
               refs.push(ref);
-              return <img key={index} onClick={() => console.log(refs)} ref={ref} src={`/images/${index}.jpg`} />;
+              return <img key={index} onClick={() => console.log(refs)} ref={ref} src={`/images/${index}.jpg`}/>;
             })
           }
           <span ref={textRef} className={styles.floatingText}>lewisgoing</span>
           <span className={styles.subheader}>a multimedia project</span>
         </div>
+
+
       </main>
   )
 }

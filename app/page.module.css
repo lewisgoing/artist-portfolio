@@ -7,6 +7,7 @@
     width: 100%;
     position: fixed;
     overflow: hidden;
+    cursor: none;
 }
 
 .main img {
@@ -48,4 +49,19 @@
     z-index: 900;
     position: relative;
     color: #000;
+}
+
+#cursor-inner {
+    display: none;
+}
+
+#cursor-outer {
+    pointer-events: none;
+    position: fixed;
+    border-radius: 50%;
+    opacity: 1; /* Adjust as necessary */
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    background-color: var(--cursor-color); /* Ensure this matches your intended color */
+    mix-blend-mode: exclusion; /* Ensure this matches your intended blend mode */
 }

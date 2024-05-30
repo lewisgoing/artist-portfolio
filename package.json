@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "animated-cursor": "^1.2.0",
     "framer-motion": "^11.2.9",
     "next": "^14.2.3",
     "react": "18.2.0",
+    "react-animated-cursor": "^2.11.2",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
