@@ -22,6 +22,7 @@
     position: absolute;
     display: none;
     transform: translateX(-50%) translateY(-50%);
+    pointer-events: none;
 }
 
 @font-face {
@@ -62,7 +63,7 @@
     position: relative;
     font-family: 'SongNeue2', serif;
     color: #313638;
-    cursor: pointer;
+    /*cursor: pointer;*/
     background-color: #ffffff;
 }
 
@@ -119,20 +120,21 @@
 }
 
 /*cursor*/
-#cursor-inner {
-    display: none;
-}
-
-#cursor-outer {
+.cursor-inner,
+.cursor-outer {
     pointer-events: none;
     position: fixed;
     border-radius: 50%;
-    opacity: 1; /* Adjust as necessary */
+    opacity: 0;
     transform: translate(-50%, -50%);
+    z-index: 999;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-    background-color: var(--cursor-color); /* Ensure this matches your intended color */
-    mix-blend-mode: exclusion; /* Ensure this matches your intended blend mode */
 }
+
+/*:root {*/
+/*    --cursor-color: #fff;*/
+/*}*/
+
 
 .footer {
     position: absolute;
