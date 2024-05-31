@@ -80,8 +80,10 @@ export default function Index() {
       },
       cursorOuterStyles: {
         backgroundColor: '#fff', // white
-        mixBlendMode: 'exclusion'
-      }
+        mixBlendMode: 'exclusion',
+        outerSize: 1,
+      },
+      outerSize: 1,
     };
     const cursor = AnimatedCursor(cursorOptions);
     cursor.init();
