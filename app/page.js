@@ -124,9 +124,9 @@ export default function Index() {
                   href={'mailto:whereislewisgoing@gmail.com'}>booking</Link>{"\n"}
 
           </div>
-          <div id="cursor">
-            <div id="cursor-inner"></div>
-            <div id="cursor-outer"></div>
+          <div id="cursor" >
+            <div id="cursor-inner" className={styles.cursorInner}></div>
+            <div id="cursor-outer" className={styles.cursorOuter}></div>
           </div>
 
         </div>
