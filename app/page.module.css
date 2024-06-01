@@ -84,7 +84,7 @@
 }
 
 .navPanel {
-    background-color: #fff;
+    /*background-color: #fff;*/
     justify-content: center;
     padding-top: 20px;
     display: flex;
@@ -112,16 +112,16 @@
     color: #fff;
 }
 
-.cursor-inner,
-.cursor-outer {
-    pointer-events: none;
-    position: fixed;
-    border-radius: 99%;
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.5);
-    z-index: 999;
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
+/*.cursor-inner,*/
+/*.cursor-outer {*/
+/*    pointer-events: none;*/
+/*    position: fixed;*/
+/*    border-radius: 99%;*/
+/*    opacity: 0;*/
+/*    transform: translate(-50%, -50%) scale(0.5);*/
+/*    z-index: 999;*/
+/*    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;*/
+/*}*/
 
 .footer {
     position: absolute;

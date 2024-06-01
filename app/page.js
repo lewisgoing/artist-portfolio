@@ -5,8 +5,6 @@ import Link from "next/link";
 import AnimatedCursor from 'animated-cursor';
 import classNames from 'classnames'; // Import classNames library
 
-// Icons
-import { FaApple } from "react-icons/fa";
 
 export default function Index() {
   let steps = 0;
@@ -105,7 +103,7 @@ export default function Index() {
             [...Array(33).keys()].map((_, index) => {
               const ref = useRef(null);
               refs.push(ref);
-              return <img key={index} onClick={() => handleClick(ref)} ref={ref} src={`/images/${index}.jpg`} />;
+              return <img key={index} onClick={() => handleClick(ref)} ref={ref} src={`/images/${index}.webp`}  alt="img-cursor"/>;
             })
           }
           <div className={styles.textBox} >
