@@ -86,7 +86,7 @@
 .navPanel {
     /*background-color: #fff;*/
     justify-content: center;
-    padding-top: 20px;
+    padding-top: 12px;
     display: flex;
     flex-direction: row;
 }
@@ -94,8 +94,8 @@
 .navItem {
     height: auto;
     width: fit-content;
-    margin: 4px;
-    padding: 4px;
+    margin: 6px;
+    padding: 2px;
     text-align: left;
     font-family: 'SongNeue', serif;
     font-weight: 400;

@@ -1,10 +1,9 @@
-'use client'
+"use client";
+import AnimatedCursor from 'animated-cursor';
 import styles from './page.module.css'
 import { useEffect, useRef, useState } from 'react';
 import Link from "next/link";
-import AnimatedCursor from 'animated-cursor';
 import classNames from 'classnames'; // Import classNames library
-
 
 export default function Index() {
   let steps = 0;
@@ -14,6 +13,7 @@ export default function Index() {
   let refs = [];
   const textRef = useRef(null);
   const [isInverted, setIsInverted] = useState(false); // State to manage color inversion
+  const [images, setImages] = useState([...Array(10).keys()]); // Initially load only 10 images
 
   const manageMouseMove = (e) => {
     const { clientX, clientY, movementX, movementY } = e;
@@ -96,30 +96,42 @@ export default function Index() {
     cursor.init();
   }, []);
 
+  // Lazy load images as the user scrolls
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        setImages(prevImages => [...prevImages, ...Array.from({length: 10}, (_, i) => i + prevImages.length)]);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
       <main className={styles.main}>
-        <div onMouseMove={(e) => manageMouseMove(e)}  className={classNames(styles.imageCursorSpace, { [styles.inverted]: isInverted })} onClick={handleInvertColors}>
+        <div onMouseMove={(e) => manageMouseMove(e)} className={classNames(styles.imageCursorSpace, { [styles.inverted]: isInverted })} onClick={handleInvertColors}>
           {
-            [...Array(33).keys()].map((_, index) => {
+            images.map((index) => {
               const ref = useRef(null);
               refs.push(ref);
-              return <img key={index} onClick={() => handleClick(ref)} ref={ref} src={`/images/${index}.webp`}  alt="img-cursor"/>;
+              return <img key={index} onClick={() => handleClick(ref)} ref={ref} src={`/images/${index}.webp`}  alt="img-cursor" loading="lazy"/>;
             })
           }
           <div className={styles.textBox} >
-            <div >
-              <span ref={textRef} className={styles.floatingText} >lewisgoing</span>
+            <div>
+              <span ref={textRef} className={styles.floatingText}>lewisgoing</span>
               <span className={styles.subheader}>a multimedia project</span>
             </div>
           </div>
-          <div className={styles.navPanel} >
-            <Link ref={textRef} className={styles.navItem} href={'https://soundcloud.com/lewisgoing'}>soundcloud</Link>{"\n"}
-            <Link ref={textRef} className={styles.navItem} href={'https://open.spotify.com/artist/0Ll3UtLjep87qvzadZ2Cp4?si=kbOPgrmRQJ-nz1kS3dquQg'}>spotify</Link>{"\n"}
-            <Link ref={textRef} className={styles.navItem} href={'https://music.apple.com/us/artist/lewisgoing/1563419779'}>apple music </Link>{"\n"}
-            <Link ref={textRef} className={styles.navItem} href={'https://soundcloud.com/earth2lewis'}>livesets</Link>{"\n"}
-            <Link ref={textRef} className={styles.navItem} href={'mailto:whereislewisgoing@gmail.com'}>booking</Link>{"\n"}
+          <div className={styles.navPanel}>
+            <Link ref={textRef} className={styles.navItem} href={'https://soundcloud.com/lewisgoing'}>soundcloud</Link>
+            <Link ref={textRef} className={styles.navItem} href={'https://open.spotify.com/artist/0Ll3UtLjep87qvzadZ2Cp4?si=kbOPgrmRQJ-nz1kS3dquQg'}>spotify</Link>
+            <Link ref={textRef} className={styles.navItem} href={'https://music.apple.com/us/artist/lewisgoing/1563419779'}>apple music</Link>
+            <Link ref={textRef} className={styles.navItem} href={'https://soundcloud.com/earth2lewis'}>livesets</Link>
+            <Link ref={textRef} className={styles.navItem} href={'mailto:whereislewisgoing@gmail.com'}>booking</Link>
           </div>
-          <div id="cursor" >
+          <div id="cursor">
             <div id="cursor-inner" className={styles.cursorInner}></div>
             <div id="cursor-outer" className={styles.cursorOuter}></div>
           </div>
