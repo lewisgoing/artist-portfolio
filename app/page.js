@@ -1,9 +1,9 @@
 "use client";
 import AnimatedCursor from 'animated-cursor';
-import styles from './page.module.css'
+import styles from './page.module.css';
 import { useEffect, useRef, useState } from 'react';
 import Link from "next/link";
-import classNames from 'classnames'; // Import classNames library
+import classNames from 'classnames';
 import Image from 'next/image';
 import { getPlaceholderImage } from '@/utils/images';
 
@@ -14,35 +14,44 @@ export default function Index() {
   let maxNumberOfImages = 8;
   let refs = [];
   const textRef = useRef(null);
-  const [isInverted, setIsInverted] = useState(false); // State to manage color inversion
-  const [images, setImages] = useState([...Array(10).keys()]); // Initially load only 10 images
+  const [isInverted, setIsInverted] = useState(false);
+  const [images, setImages] = useState([...Array(10).keys()]);
 
-  const manageMouseMove = (e) => {
-    const { clientX, clientY, movementX, movementY } = e;
-    steps += Math.abs(movementX) + Math.abs(movementY);
-
-    if (steps >= currentIndex * 150) {
-      moveImage(clientX, clientY);
-
-      if (nbOfImages === maxNumberOfImages) {
-        removeImage();
-      }
+  const manageMove = (x, y) => {
+    moveImage(x, y);
+    if (nbOfImages === maxNumberOfImages) {
+      removeImage();
     }
-
     if (currentIndex === refs.length) {
       currentIndex = 0;
       steps = -150;
     }
   }
 
+  const manageMouseMove = (e) => {
+    const { clientX, clientY, movementX, movementY } = e;
+    steps += Math.abs(movementX) + Math.abs(movementY);
+
+    if (steps >= currentIndex * 150) {
+      manageMove(clientX, clientY);
+    }
+  }
+
+  const manageTouchMove = (e) => {
+    const { clientX, clientY } = e.touches[0];
+    manageMove(clientX, clientY);
+  }
+
   const moveImage = (x, y) => {
     const currentImage = refs[currentIndex].current;
-    currentImage.style.left = x + "px";
-    currentImage.style.top = y + "px";
-    currentImage.style.display = "block";
-    currentIndex++;
-    nbOfImages++;
-    setZIndex();
+    if (currentImage) {
+      currentImage.style.left = x + "px";
+      currentImage.style.top = y + "px";
+      currentImage.style.display = "block";
+      currentIndex++;
+      nbOfImages++;
+      setZIndex();
+    }
   }
 
   const setZIndex = () => {
@@ -54,8 +63,10 @@ export default function Index() {
 
   const removeImage = () => {
     const images = getCurrentImages();
-    images[0].style.display = "none";
-    nbOfImages--;
+    if (images[0]) {
+      images[0].style.display = "none";
+      nbOfImages--;
+    }
   }
 
   const getCurrentImages = () => {
@@ -64,16 +75,18 @@ export default function Index() {
     for (let i = indexOfFirst; i < currentIndex; i++) {
       let targetIndex = i;
       if (targetIndex < 0) targetIndex += refs.length;
-      images.push(refs[targetIndex].current);
+      images.push(refs[targetIndex]?.current);
     }
-    return images;
+    return images.filter(Boolean);
   }
 
   const handleClick = (ref) => {
-    ref.current.classList.add(styles.clicked);
-    setTimeout(() => {
-      ref.current.classList.remove(styles.clicked);
-    }, 500);
+    if (ref.current) {
+      ref.current.classList.add(styles.clicked);
+      setTimeout(() => {
+        ref.current.classList.remove(styles.clicked);
+      }, 500);
+    }
   }
 
   const handleInvertColors = () => {
@@ -98,11 +111,10 @@ export default function Index() {
     cursor.init();
   }, []);
 
-  // Lazy load images as the user scrolls
   useEffect(() => {
     const handleScroll = () => {
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        setImages(prevImages => [...prevImages, ...Array.from({length: 10}, (_, i) => i + prevImages.length)]);
+        setImages(prevImages => [...prevImages, ...Array.from({ length: 10 }, (_, i) => i + prevImages.length)]);
       }
     };
 
@@ -112,7 +124,12 @@ export default function Index() {
 
   return (
       <main className={styles.main}>
-        <div onMouseMove={(e) => manageMouseMove(e)} className={classNames(styles.imageCursorSpace, { [styles.inverted]: isInverted })} onClick={handleInvertColors}>
+        <div
+            onMouseMove={(e) => manageMouseMove(e)}
+            onTouchMove={(e) => manageTouchMove(e)}
+            className={classNames(styles.imageCursorSpace, { [styles.inverted]: isInverted })}
+            onClick={handleInvertColors}
+        >
           {
             images.map((index) => {
               const ref = useRef(null);
@@ -126,7 +143,7 @@ export default function Index() {
                       alt="img-cursor"
                       loading="lazy"
                       placeholder="blur"
-                      blurDataURL={`/images-blur/${index}-blur.webp`}
+                      blurDataURL={`/images/${index}-blur.webp`}
                       width={600}
                       height={400}
                       layout="intrinsic"
@@ -134,7 +151,7 @@ export default function Index() {
               );
             })
           }
-          <div className={styles.textBox} >
+          <div className={styles.textBox}>
             <div>
               <span ref={textRef} className={styles.floatingText}>lewisgoing</span>
               <span className={styles.subheader}>a multimedia project</span>
