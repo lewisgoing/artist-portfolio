@@ -17,6 +17,7 @@
     "react-animated-cursor": "^2.11.2",
     "react-dom": "18.2.0",
     "react-icons": "^5.2.1",
+    "sharp": "^0.33.4",
     "vercel": "^34.2.4"
   },
   "devDependencies": {

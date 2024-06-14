@@ -4,6 +4,8 @@ import styles from './page.module.css'
 import { useEffect, useRef, useState } from 'react';
 import Link from "next/link";
 import classNames from 'classnames'; // Import classNames library
+import Image from 'next/image';
+import { getPlaceholderImage } from '@/utils/images';
 
 export default function Index() {
   let steps = 0;
@@ -115,7 +117,21 @@ export default function Index() {
             images.map((index) => {
               const ref = useRef(null);
               refs.push(ref);
-              return <img key={index} onClick={() => handleClick(ref)} ref={ref} src={`/images/${index}.webp`}  alt="img-cursor" loading="lazy"/>;
+              return (
+                  <Image
+                      key={index}
+                      onClick={() => handleClick(ref)}
+                      ref={ref}
+                      src={`/images/${index}.webp`}
+                      alt="img-cursor"
+                      loading="lazy"
+                      placeholder="blur"
+                      blurDataURL={`/images-blur/${index}-blur.webp`}
+                      width={600}
+                      height={400}
+                      layout="intrinsic"
+                  />
+              );
             })
           }
           <div className={styles.textBox} >
